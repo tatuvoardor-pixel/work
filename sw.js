@@ -1,5 +1,5 @@
-/* WORK Service Worker v0.2 */
-const CACHE='work-v0.2';
+/* WORK Service Worker v0.3 */
+const CACHE='work-v0.3';
 const FILES=['./','./index.html','./bio-bridge.js'];
 
 self.addEventListener('install',e=>{
