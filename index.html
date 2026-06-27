@@ -71,6 +71,45 @@ input{font-size:16px !important;}
 #hist-vazio{text-align:center;color:var(--t3);font-size:0.7rem;padding:20px;}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--grn);color:#000;padding:10px 20px;border-radius:10px;font-size:0.75rem;z-index:999;opacity:0;transition:all 0.3s;pointer-events:none;font-family:'Lilita One',cursive;max-width:90vw;text-align:center;}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ═══ PASSOS INCREMENTAL v0.4 ═══ */
+.passos-total{font-size:2rem;color:var(--acc);text-align:center;line-height:1.15;margin:10px 0 4px;}
+.passos-sub{font-size:0.55rem;color:var(--t3);text-transform:uppercase;text-align:center;margin-bottom:14px;}
+.passos-row{display:flex;gap:6px;margin-bottom:8px;width:100%;}
+.passos-input{flex:1;min-width:0;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:12px;color:var(--tx);font-family:'Lilita One',cursive;text-align:center;outline:none;font-size:1.1rem !important;}
+.passos-input:focus{border-color:var(--org);}
+.passos-input::placeholder{color:var(--t3);font-size:0.9rem;}
+.passos-add{flex-shrink:0;padding:0 16px;background:var(--acc);border:none;border-radius:10px;color:#000;font-family:'Lilita One',cursive;font-size:1.3rem;cursor:pointer;}
+.passos-add:active{transform:scale(0.95);}
+.passos-zerar{width:100%;padding:8px;background:transparent;border:1px solid var(--bd);border-radius:8px;color:var(--t3);font-family:'Lilita One',cursive;font-size:0.7rem;cursor:pointer;text-transform:uppercase;}
+.passos-zerar:active{background:rgba(239,68,68,0.1);color:var(--red);border-color:var(--red);}
+
+/* ═══ TREINOS MÚLTIPLOS v0.5 ═══ */
+.treino-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.treino-btn{padding:14px 6px;background:var(--s1);border:1px solid var(--bd);border-radius:12px;color:var(--t3);font-family:'Lilita One',cursive;font-size:0.75rem;text-transform:uppercase;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;gap:4px;}
+.treino-btn:active{transform:scale(0.95);}
+.treino-btn.active.forca{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.5);color:var(--red);}
+.treino-btn.active.aerobico{background:rgba(45,212,191,0.15);border-color:rgba(45,212,191,0.5);color:var(--acc);}
+.treino-btn.active.alongamento{background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.5);color:var(--grn);}
+.treino-btn.active.outro{background:rgba(168,85,247,0.15);border-color:rgba(168,85,247,0.5);color:#a855f7;}
+.treino-check{font-size:0.9rem;}
+
+/* DETALHES DO TREINO */
+.treino-detalhes{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:8px;}
+.treino-det-titulo{font-size:0.65rem;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.treino-det-titulo.forca{color:var(--red);}
+.treino-det-titulo.aerobico{color:var(--acc);}
+.treino-det-titulo.alongamento{color:var(--grn);}
+.treino-det-titulo.outro{color:#a855f7;}
+.treino-input-nome{width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:10px;color:var(--tx);font-family:'Lilita One',cursive;font-size:0.9rem;outline:none;margin-bottom:8px;}
+.treino-input-nome:focus{border-color:var(--org);}
+.treino-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.treino-field{display:flex;flex-direction:column;}
+.treino-field-lbl{font-size:0.5rem;color:var(--t3);text-transform:uppercase;margin-bottom:3px;text-align:center;}
+.treino-field input{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:10px 4px;color:var(--tx);font-family:'Lilita One',cursive;font-size:1rem;text-align:center;outline:none;width:100%;}
+.treino-field input:focus{border-color:var(--org);}
+.treino-field input.auto{color:var(--yel);border-style:dashed;}
+.treino-kcal-info{font-size:0.5rem;color:var(--t3);margin-top:6px;text-align:center;font-style:italic;}
 </style>
 </head>
 <body>
@@ -102,7 +141,7 @@ input{font-size:16px !important;}
       </svg>
       <div>
         <div id="header-title">MAX.CORE WORK</div>
-        <div id="header-sub">Registro de Produção · v0.3</div>
+        <div id="header-sub">Registro de Produção · v0.5.1</div>
       </div>
     </div>
     <div id="header-date">--</div>
@@ -141,6 +180,84 @@ input{font-size:16px !important;}
       <div class="campo-nome">FC Média do Turno <span class="opt-tag">OPCIONAL</span></div>
       <div class="campo-desc">Veja no Amazfit a média de batimentos do período do turno (deixa vazio se não tem)</div>
       <input type="number" class="campo-input fc" id="in-fc" placeholder="bpm" min="40" max="220" inputmode="numeric">
+    </div>
+
+    <!-- ═══ PASSOS INCREMENTAL v0.4 ═══ -->
+    <div class="campo-card">
+      <div class="campo-nome">👟 Passos do Turno</div>
+      <div class="campo-desc">Lance cada barra do Zepp aqui — ele soma sozinho</div>
+      <div class="passos-total" id="passos-total">0</div>
+      <div class="passos-sub">passos acumulados</div>
+      <div class="passos-row">
+        <input type="number" class="passos-input" id="in-passos" placeholder="Ex: 1500" min="0" inputmode="numeric">
+        <button class="passos-add" onclick="addPassos()">+</button>
+      </div>
+      <button class="passos-zerar" onclick="zerarPassos()">🗑 Zerar passos</button>
+    </div>
+
+    <!-- ═══ TREINOS MÚLTIPLOS v0.5 ═══ -->
+    <div class="campo-card opcional">
+      <div class="campo-nome">🏋️ Treinos do Dia <span class="opt-tag">OPCIONAL</span></div>
+      <div class="campo-desc">Marque os tipos e preencha cada treino. Kcal calcula sozinho se preencher FC.</div>
+      <div class="treino-grid">
+        <button class="treino-btn" id="trn-forca" onclick="toggleTreino('forca')">
+          <span class="treino-check" id="chk-forca"></span>Força
+        </button>
+        <button class="treino-btn" id="trn-aerobico" onclick="toggleTreino('aerobico')">
+          <span class="treino-check" id="chk-aerobico"></span>Aeróbico
+        </button>
+        <button class="treino-btn" id="trn-alongamento" onclick="toggleTreino('alongamento')">
+          <span class="treino-check" id="chk-alongamento"></span>Alongam.
+        </button>
+        <button class="treino-btn" id="trn-outro" onclick="toggleTreino('outro')">
+          <span class="treino-check" id="chk-outro"></span>Outro
+        </button>
+      </div>
+
+      <!-- DETALHES POR TIPO -->
+      <div class="treino-detalhes" id="det-forca" style="display:none">
+        <div class="treino-det-titulo forca">💪 Força</div>
+        <input type="text" class="treino-input-nome" id="nm-forca" placeholder="Ex: Musculação peito, Circuito, Crossfit">
+        <div class="treino-row3">
+          <div class="treino-field"><div class="treino-field-lbl">Tempo (min)</div><input type="number" id="tm-forca" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">FC (bpm)</div><input type="number" id="fc-forca" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">Kcal</div><input type="number" id="kc-forca" class="auto" placeholder="auto" min="0" inputmode="numeric"></div>
+        </div>
+        <div class="treino-kcal-info" id="info-forca">Preencha tempo + FC pro cálculo</div>
+      </div>
+
+      <div class="treino-detalhes" id="det-aerobico" style="display:none">
+        <div class="treino-det-titulo aerobico">🏃 Aeróbico</div>
+        <input type="text" class="treino-input-nome" id="nm-aerobico" placeholder="Ex: Corrida, Bike, HIIT, Caminhada">
+        <div class="treino-row3">
+          <div class="treino-field"><div class="treino-field-lbl">Tempo (min)</div><input type="number" id="tm-aerobico" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">FC (bpm)</div><input type="number" id="fc-aerobico" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">Kcal</div><input type="number" id="kc-aerobico" class="auto" placeholder="auto" min="0" inputmode="numeric"></div>
+        </div>
+        <div class="treino-kcal-info" id="info-aerobico">Preencha tempo + FC pro cálculo</div>
+      </div>
+
+      <div class="treino-detalhes" id="det-alongamento" style="display:none">
+        <div class="treino-det-titulo alongamento">🧘 Alongamento</div>
+        <input type="text" class="treino-input-nome" id="nm-alongamento" placeholder="Ex: Yoga, Mobilidade, Foam roller">
+        <div class="treino-row3">
+          <div class="treino-field"><div class="treino-field-lbl">Tempo (min)</div><input type="number" id="tm-alongamento" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">FC (bpm)</div><input type="number" id="fc-alongamento" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">Kcal</div><input type="number" id="kc-alongamento" class="auto" placeholder="auto" min="0" inputmode="numeric"></div>
+        </div>
+        <div class="treino-kcal-info" id="info-alongamento">Preencha tempo + FC pro cálculo</div>
+      </div>
+
+      <div class="treino-detalhes" id="det-outro" style="display:none">
+        <div class="treino-det-titulo outro">⚡ Outro</div>
+        <input type="text" class="treino-input-nome" id="nm-outro" placeholder="Ex: Natação, Boxe, Pilates">
+        <div class="treino-row3">
+          <div class="treino-field"><div class="treino-field-lbl">Tempo (min)</div><input type="number" id="tm-outro" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">FC (bpm)</div><input type="number" id="fc-outro" placeholder="0" min="0" inputmode="numeric"></div>
+          <div class="treino-field"><div class="treino-field-lbl">Kcal</div><input type="number" id="kc-outro" class="auto" placeholder="auto" min="0" inputmode="numeric"></div>
+        </div>
+        <div class="treino-kcal-info" id="info-outro">Preencha tempo + FC pro cálculo</div>
+      </div>
     </div>
   </div>
 
@@ -184,13 +301,137 @@ function setIntensidade(modo){
   });
 }
 
+// ═══════════════ PASSOS INCREMENTAL v0.4 ═══════════════
+let passosAcum = parseInt(localStorage.getItem('work_passos_acum')) || 0;
+
+function renderPassos(){
+  document.getElementById('passos-total').textContent = passosAcum.toLocaleString('pt-BR');
+}
+
+function addPassos(){
+  const inp = document.getElementById('in-passos');
+  const v = parseInt(inp.value) || 0;
+  if(v <= 0){
+    toast('Digite um número válido', true);
+    return;
+  }
+  passosAcum += v;
+  localStorage.setItem('work_passos_acum', passosAcum);
+  inp.value = '';
+  renderPassos();
+  // Animação
+  const tot = document.getElementById('passos-total');
+  tot.style.transform = 'scale(1.15)';
+  setTimeout(() => { tot.style.transform = 'scale(1)'; }, 200);
+  toast('+ ' + v.toLocaleString('pt-BR') + ' passos');
+}
+
+function zerarPassos(){
+  if(passosAcum === 0) return;
+  if(!confirm('Zerar os ' + passosAcum.toLocaleString('pt-BR') + ' passos acumulados?')) return;
+  passosAcum = 0;
+  localStorage.setItem('work_passos_acum', 0);
+  renderPassos();
+  toast('Passos zerados');
+}
+
+// ═══════════════ TREINOS MÚLTIPLOS v0.5 ═══════════════
+const PESO_USUARIO = 89; // kg — usado no cálculo de kcal
+const MET_CATEGORIA = { forca: 6, aerobico: 7, alongamento: 2.5, outro: 5 };
+
+let treinosDia = JSON.parse(localStorage.getItem('work_treinos_dia') || '[]');
+let treinoDados = JSON.parse(localStorage.getItem('work_treino_dados') || '{}');
+const TIPOS = ['forca','aerobico','alongamento','outro'];
+
+function calcKcal(tipo, fc, tempo){
+  if(tempo <= 0) return 0;
+  // Se FC >= 100, usa fórmula Keytel (cardio)
+  if(fc >= 100){
+    const kcalMin = (fc * 0.6309 + PESO_USUARIO * 0.1988 - 55) / 4.184;
+    return Math.max(0, Math.round(kcalMin * tempo));
+  }
+  // Se FC < 100 ou vazio, usa MET por categoria
+  const met = MET_CATEGORIA[tipo] || 5;
+  const kcalMin = (met * PESO_USUARIO * 3.5) / 200; // fórmula ACSM
+  return Math.round(kcalMin * tempo);
+}
+
+function atualizarKcalAuto(tipo){
+  const fc = parseInt(document.getElementById('fc-'+tipo).value) || 0;
+  const tempo = parseInt(document.getElementById('tm-'+tipo).value) || 0;
+  const kcalInp = document.getElementById('kc-'+tipo);
+  const info = document.getElementById('info-'+tipo);
+  // Só auto-calcula se kcal não foi digitado manualmente
+  const isAuto = kcalInp.classList.contains('auto');
+  if(tempo > 0){
+    const kcal = calcKcal(tipo, fc, tempo);
+    if(isAuto){
+      kcalInp.value = kcal;
+      if(fc >= 100){
+        info.textContent = '✓ Calculado por FC ('+fc+'bpm × '+tempo+'min × peso 89kg) — Fórmula Keytel 2005';
+      } else if(fc > 0){
+        info.textContent = '⚠ FC baixa pra cardio — usando MET base ('+MET_CATEGORIA[tipo]+' MET × peso × tempo)';
+      } else {
+        info.textContent = '✓ Calculado por MET ('+MET_CATEGORIA[tipo]+' MET × 89kg × '+tempo+'min)';
+      }
+    }
+  }
+}
+
+function salvarTreinoDados(tipo){
+  treinoDados[tipo] = {
+    nome: document.getElementById('nm-'+tipo).value.trim(),
+    tempo: parseInt(document.getElementById('tm-'+tipo).value) || 0,
+    fc: parseInt(document.getElementById('fc-'+tipo).value) || 0,
+    kcal: parseInt(document.getElementById('kc-'+tipo).value) || 0
+  };
+  localStorage.setItem('work_treino_dados', JSON.stringify(treinoDados));
+}
+
+function toggleTreino(tipo){
+  const idx = treinosDia.indexOf(tipo);
+  if(idx >= 0){
+    treinosDia.splice(idx, 1);
+  } else {
+    treinosDia.push(tipo);
+  }
+  localStorage.setItem('work_treinos_dia', JSON.stringify(treinosDia));
+  renderTreinos();
+}
+
+function renderTreinos(){
+  TIPOS.forEach(t => {
+    const btn = document.getElementById('trn-'+t);
+    const chk = document.getElementById('chk-'+t);
+    const det = document.getElementById('det-'+t);
+    btn.classList.remove('active','forca','aerobico','alongamento','outro');
+    if(treinosDia.indexOf(t) >= 0){
+      btn.classList.add('active', t);
+      chk.textContent = '✓ ';
+      det.style.display = 'block';
+      // Restaura valores salvos
+      if(treinoDados[t]){
+        document.getElementById('nm-'+t).value = treinoDados[t].nome || '';
+        document.getElementById('tm-'+t).value = treinoDados[t].tempo || '';
+        document.getElementById('fc-'+t).value = treinoDados[t].fc || '';
+        if(treinoDados[t].kcal > 0){
+          document.getElementById('kc-'+t).value = treinoDados[t].kcal;
+        }
+      }
+    } else {
+      chk.textContent = '';
+      det.style.display = 'none';
+    }
+  });
+}
+
 function salvar(){
   const paletes=parseInt(document.getElementById('in-paletes').value)||0;
   const sacos=parseInt(document.getElementById('in-sacos').value)||0;
   const marreta=parseInt(document.getElementById('in-marreta').value)||0;
   const fc=parseInt(document.getElementById('in-fc').value)||0;
 
-  if(intensidadeAtual==='folga' && paletes===0 && sacos===0 && marreta===0){
+  if(intensidadeAtual==='folga' && paletes===0 && sacos===0 && marreta===0 && passosAcum===0){
     toast('Selecione a intensidade ou preencha um campo!',true);
     return;
   }
@@ -200,27 +441,72 @@ function salvar(){
     return;
   }
 
-  const registro={ts:Date.now(),paletes,sacos,marreta,fc,intensidade:intensidadeAtual};
+  const registro={
+    ts:Date.now(),
+    paletes,sacos,marreta,fc,
+    intensidade:intensidadeAtual,
+    passos:passosAcum,
+    treinos:[...treinosDia],
+    treinoDetalhes: JSON.parse(JSON.stringify(treinoDados))
+  };
   historico.unshift(registro);
   if(historico.length>30)historico.pop();
   localStorage.setItem('work_historico',JSON.stringify(historico));
+
+  // Totaliza tempo + kcal de todos os treinos
+  let treinoTempoTotal = 0;
+  let treinoKcalTotal = 0;
+  let treinoFcMedia = 0;
+  let fcCount = 0;
+  treinosDia.forEach(t => {
+    const d = treinoDados[t];
+    if(d){
+      treinoTempoTotal += d.tempo || 0;
+      treinoKcalTotal += d.kcal || 0;
+      if(d.fc > 0){ treinoFcMedia += d.fc; fcCount++; }
+    }
+  });
+  if(fcCount > 0) treinoFcMedia = Math.round(treinoFcMedia / fcCount);
 
   // Envia pro BioMetrics
   const payload={
     intensidade:intensidadeAtual,
     paletes:paletes,
     reator:sacos,
-    marreta:marreta
+    marreta:marreta,
+    passos:passosAcum
   };
-  // Só envia FC se preenchido
   if(fc>0) payload.fcTurno=fc;
+  if(treinosDia.length > 0){
+    payload.treinos = treinosDia.join(',');
+    payload.treinoTempo = treinoTempoTotal;
+    payload.treinoKcal = treinoKcalTotal;
+    if(treinoFcMedia > 0) payload.fcTreino = treinoFcMedia;
+  }
 
   let enviou=false;
   if(typeof BioBridge!=='undefined'){
     enviou=BioBridge.push('work',payload);
   }
 
-  ['in-paletes','in-sacos','in-marreta','in-fc'].forEach(id=>{document.getElementById(id).value='';});
+  // Reset dos campos
+  ['in-paletes','in-sacos','in-marreta','in-fc','in-passos'].forEach(id=>{document.getElementById(id).value='';});
+  TIPOS.forEach(t => {
+    document.getElementById('nm-'+t).value = '';
+    document.getElementById('tm-'+t).value = '';
+    document.getElementById('fc-'+t).value = '';
+    document.getElementById('kc-'+t).value = '';
+    document.getElementById('kc-'+t).classList.add('auto');
+    document.getElementById('info-'+t).textContent = 'Preencha tempo + FC pro cálculo';
+  });
+  passosAcum = 0;
+  treinosDia = [];
+  treinoDados = {};
+  localStorage.setItem('work_passos_acum', 0);
+  localStorage.setItem('work_treinos_dia', '[]');
+  localStorage.setItem('work_treino_dados', '{}');
+  renderPassos();
+  renderTreinos();
   renderHistorico();
 
   const btn=document.getElementById('btn-salvar');
@@ -243,10 +529,14 @@ function renderHistorico(){
   const vazio=document.getElementById('hist-vazio');
   if(historico.length===0){lista.innerHTML='';vazio.style.display='block';return;}
   vazio.style.display='none';
+  const TREINO_LBL={forca:'💪',aerobico:'🏃',alongamento:'🧘',outro:'⚡'};
   lista.innerHTML=historico.map((r,i)=>{
     const int=r.intensidade||'folga';
     const intLabel=int==='moderado'?'Médio':int==='pesado'?'Pesado':'Folga';
     const fcBox=r.fc>0?`<div class="hist-val"><div class="hist-val-num" style="color:var(--pnk)">${r.fc}</div><div class="hist-val-lbl">FC bpm</div></div>`:'';
+    const passosBox=(r.passos>0)?`<div class="hist-val"><div class="hist-val-num" style="color:var(--acc)">${r.passos.toLocaleString('pt-BR')}</div><div class="hist-val-lbl">Passos</div></div>`:'';
+    const treinos=Array.isArray(r.treinos)?r.treinos:[];
+    const treinosBox=treinos.length>0?`<div class="hist-val" style="min-width:60px"><div class="hist-val-num" style="font-size:0.85rem">${treinos.map(t=>TREINO_LBL[t]||'').join(' ')}</div><div class="hist-val-lbl">Treino</div></div>`:'';
     return `
     <div class="hist-item">
       <div class="hist-item-head">
@@ -261,6 +551,8 @@ function renderHistorico(){
         <div class="hist-val"><div class="hist-val-num" style="color:var(--acc)">${r.sacos}</div><div class="hist-val-lbl">Sacos</div></div>
         <div class="hist-val"><div class="hist-val-num" style="color:var(--grn)">${r.marreta}min</div><div class="hist-val-lbl">Marreta</div></div>
         ${fcBox}
+        ${passosBox}
+        ${treinosBox}
       </div>
     </div>`;
   }).join('');
@@ -298,6 +590,35 @@ window.addEventListener('load',()=>{
   setIntensidade(intSalva);
   atualizarHeader();
   renderHistorico();
+  renderPassos();
+  renderTreinos();
+  // Enter no input de passos = adicionar
+  document.getElementById('in-passos').addEventListener('keydown', e => {
+    if(e.key === 'Enter') addPassos();
+  });
+  // Eventos dos inputs de treino (auto-cálculo kcal + salvar)
+  TIPOS.forEach(t => {
+    document.getElementById('nm-'+t).addEventListener('input', () => salvarTreinoDados(t));
+    document.getElementById('tm-'+t).addEventListener('input', () => {
+      // Reseta kcal pra auto se usuário digitar tempo/fc de novo
+      document.getElementById('kc-'+t).classList.add('auto');
+      atualizarKcalAuto(t);
+      salvarTreinoDados(t);
+    });
+    document.getElementById('fc-'+t).addEventListener('input', () => {
+      document.getElementById('kc-'+t).classList.add('auto');
+      atualizarKcalAuto(t);
+      salvarTreinoDados(t);
+    });
+    // Se usuário digitar kcal manualmente, vira manual
+    document.getElementById('kc-'+t).addEventListener('input', (e) => {
+      if(e.isTrusted){
+        e.target.classList.remove('auto');
+        document.getElementById('info-'+t).textContent = '✏ Valor digitado manualmente';
+        salvarTreinoDados(t);
+      }
+    });
+  });
   setTimeout(()=>{
     document.getElementById('splash').style.opacity='0';
     setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('app').style.display='block';},500);
